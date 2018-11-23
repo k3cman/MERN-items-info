@@ -1,25 +1,26 @@
 import React, { Component } from 'react'
-import {withStyles,CssBaseline,AppBar,Toolbar, Typography,Drawer, List, ListItem,ListItemText,ListItemIcon,Divider,Grid,ListSubheader,Collapse, LinearProgress } from '@material-ui/core';
-import CategoryIcon from '@material-ui/icons/Category'
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import {withStyles,CssBaseline,AppBar,Toolbar, Typography,Grid, LinearProgress } from '@material-ui/core';
 import ItemCard from './ItemCard'
+import DrawerRight from './Drawer'
+import {connect} from 'react-redux';
+import {getItems} from '../../actions/ItemActions';
 
 class Layout extends Component {
     state={
-        open:false,
+        
         items:[],
         loading:true
     }
     componentDidMount = () => {
-        fetch('http://localhost:5000/items/')
+        fetch('https://enmon-nl-server.herokuapp.com/items/')
         .then(res => res.json())
         .then(data => this.setState({items:data, loading:false}))
         .catch(err => console.log(err))
+
+        this.props.getItems();
+        console.log(this.props.items.loading)
     }
-    handleClick = () => {
-        this.setState(state => ({ open: !this.state.open }));
-      };
+
   render() {
       const {classes} = this.props;
     return (
@@ -35,7 +36,7 @@ class Layout extends Component {
         <main className={classes.content}>
         <div className={classes.toolbar} />
             <Grid container spacing={8}>
-            {this.state.loading ? <LinearProgress variant="query" /> : this.state.items.map((item,index)=> (<Grid key={index} item xs={2}>
+            {this.props.items.loading ? <LinearProgress variant="query" /> : this.props.items.items.map((item,index)=> (<Grid key={index} item xs={2}>
                     <ItemCard
                         title={item.Naziv}
                         brand={item.Brand}
@@ -45,7 +46,8 @@ class Layout extends Component {
                 
             </Grid>
       </main>
-      <Drawer
+      <DrawerRight />
+      {/* <Drawer
         className={classes.drawer}
         variant="permanent"
         classes={{
@@ -72,7 +74,7 @@ class Layout extends Component {
                 </List>
             </Collapse>
         </List>
-      </Drawer>
+      </Drawer> */}
       </div>
     )
   }
@@ -99,4 +101,8 @@ const styles = theme => ({
     toolbar:theme.mixins.toolbar
 })
 
-export default withStyles(styles)(Layout);
+const mapStateToProps = state => ({
+    items:state.items
+})
+
+export default connect(mapStateToProps,{getItems})(withStyles(styles)(Layout));
