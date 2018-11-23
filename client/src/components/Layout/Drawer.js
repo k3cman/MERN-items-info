@@ -1,5 +1,5 @@
 import React, {Fragment, Component} from 'react'
-import {Drawer,List,ListItem,ListItemIcon,ListItemText,ListSubheader,Collapse,withStyles} from '@material-ui/core'
+import {Drawer,List,ListItem,ListItemIcon,ListItemText,ListSubheader,Collapse,withStyles, ListItemSecondaryAction, Checkbox} from '@material-ui/core'
 import CategoryIcon from '@material-ui/icons/Category'
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -9,7 +9,8 @@ import {getFilters} from '../../actions/FilterActions'
 class DrawerRight extends Component {
     state={
         openCat:false,
-        openBrand:false
+        openBrand:false,
+        checked:null
     }
     handleClick = () => {
         this.setState({ openCat: !this.state.openCat });
@@ -19,6 +20,9 @@ class DrawerRight extends Component {
       };
     componentDidMount = () => {
         this.props.getFilters()
+    }
+    handleChange = (id) => {
+        
     }
     render(){
         const brands = this.props.filter[1].map((brand, index) => (<ListItem button key={brand}>
@@ -37,22 +41,19 @@ class DrawerRight extends Component {
           >
             <div className={classes.toolbar} />
             <List dense component="nav" subheader={<ListSubheader component="div">FILTER</ListSubheader>}>
-                <ListItem button onClick={this.handleClick}>
-                    <ListItemIcon>
-                        <CategoryIcon/>
-                    </ListItemIcon>
-                    <ListItemText inset primary="KATEGORIJE" />
-                    {this.state.open ? <ExpandLess /> : <ExpandMore/>} 
-                </ListItem>
-                <Collapse in={this.state.openCat} timeout="auto" unmountOnExit>
-                    <List dense component="div" disablePadding>
+            <List dense component="div" disablePadding>
                         {this.props.filter[0].map((text, index) => (
                             <ListItem button key={index}>
                                 <ListItemText primary={text} />
+                                <ListItemSecondaryAction>
+                                    <Checkbox
+                                        onChange={this.handleChange(text)}
+                                        checked
+                                         />
+                                </ListItemSecondaryAction>
                             </ListItem>
                         ))}
                     </List>
-                </Collapse>
                 <ListItem button onClick={this.handleClick2}>
                     <ListItemIcon>
                         <CategoryIcon/>

@@ -4,6 +4,15 @@ import ArrowDownward from '@material-ui/icons/ArrowDownward'
 
 function ItemCard(props) {
     const {classes} = props;
+    const brandLogo = () => {
+      if(props.brand === 'Marazzi'){
+        return (<img src="./img/marazzi.png" height="20" />);
+      }else if(props.brand === 'Hispania'){
+        return (<img src="./img/hispania.jpg" height="20" />)
+      }else {
+        return (<Typography variant="p">{props.brand}</Typography>)
+      }
+    }
   return (
     <div>
       <Paper className={classes.root}>
@@ -11,9 +20,7 @@ function ItemCard(props) {
       <Typography variant="h6" component="h3">
             {props.title}
           </Typography>
-          <Typography component="p">
-          {props.brand}
-          </Typography>
+          <img src={props.brandImg} style={{height:'15px', width:'auto'}} />
       </div>
           <div className={classes.right}>
           <a href={props.url} target="_blank">

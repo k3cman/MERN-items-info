@@ -36,11 +36,12 @@ class Layout extends Component {
         <main className={classes.content}>
         <div className={classes.toolbar} />
             <Grid container spacing={8}>
-            {this.props.items.loading ? <LinearProgress variant="query" /> : this.props.items.items.map((item,index)=> (<Grid key={index} item xs={2}>
+            {this.props.items.loading ? <LinearProgress variant="query" /> : this.props.items.items.map((item,index)=> (<Grid key={index} item xs={3}>
                     <ItemCard
                         title={item.Naziv}
                         brand={item.Brand}
                         url={item.Url}
+                        brandImg={item.brandImg}
                     />
                 </Grid>))}
                 
