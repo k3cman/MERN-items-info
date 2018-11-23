@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {withStyles,CssBaseline,AppBar,Toolbar, Typography,Drawer, List, ListItem,ListItemText,ListItemIcon,Divider,Grid,ListSubheader,Collapse } from '@material-ui/core';
+import {withStyles,CssBaseline,AppBar,Toolbar, Typography,Drawer, List, ListItem,ListItemText,ListItemIcon,Divider,Grid,ListSubheader,Collapse, LinearProgress } from '@material-ui/core';
 import CategoryIcon from '@material-ui/icons/Category'
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -7,7 +7,15 @@ import ItemCard from './ItemCard'
 
 class Layout extends Component {
     state={
-        open:false
+        open:false,
+        items:[],
+        loading:true
+    }
+    componentDidMount = () => {
+        fetch('http://localhost:5000/items/')
+        .then(res => res.json())
+        .then(data => this.setState({items:data, loading:false}))
+        .catch(err => console.log(err))
     }
     handleClick = () => {
         this.setState(state => ({ open: !this.state.open }));
@@ -27,39 +35,14 @@ class Layout extends Component {
         <main className={classes.content}>
         <div className={classes.toolbar} />
             <Grid container spacing={8}>
-                <Grid item xs={2}>
-                    <ItemCard />
-                </Grid>
-                <Grid item xs={2}>
-                    <ItemCard />
-                </Grid>
-                <Grid item xs={2}>
-                    <ItemCard />
-                </Grid>
-                <Grid item xs={2}>
-                    <ItemCard />
-                </Grid>
-                <Grid item xs={2}>
-                    <ItemCard />
-                </Grid>
-                <Grid item xs={2}>
-                    <ItemCard />
-                </Grid>
-                <Grid item xs={2}>
-                    <ItemCard />
-                </Grid>
-                <Grid item xs={2}>
-                    <ItemCard />
-                </Grid>
-                <Grid item xs={2}>
-                    <ItemCard />
-                </Grid>
-                <Grid item xs={2}>
-                    <ItemCard />
-                </Grid>
-                <Grid item xs={2}>
-                    <ItemCard />
-                </Grid>
+            {this.state.loading ? <LinearProgress variant="query" /> : this.state.items.map((item,index)=> (<Grid key={index} item xs={2}>
+                    <ItemCard
+                        title={item.Naziv}
+                        brand={item.Brand}
+                        url={item.Url}
+                    />
+                </Grid>))}
+                
             </Grid>
       </main>
       <Drawer
