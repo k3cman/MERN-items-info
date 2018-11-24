@@ -17,7 +17,7 @@ function ItemCard(props) {
     <div>
       <Paper className={classes.root}>
       <div className={classes.left}>
-      <Typography variant="h6" component="h3">
+      <Typography variant="subtitle1" style={{fontWeight:'bold'}}>
             {props.title}
           </Typography>
           <img src={props.brandImg} style={{height:'15px', width:'auto'}} />
