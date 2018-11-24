@@ -1,4 +1,4 @@
-import {GET_ITEMS} from '../actions/types';
+import {GET_ITEMS, UPDATE_ITEMS, SEARCH_ITEMS} from '../actions/types';
 
 const initialState = {
     loading:true,
@@ -8,6 +8,11 @@ const initialState = {
 export default (state = initialState, action) => {
     switch(action.type){
         case GET_ITEMS:
+            return {
+                loading:false,
+                items:action.payload
+            }
+        case UPDATE_ITEMS:
             return {
                 loading:false,
                 items:action.payload

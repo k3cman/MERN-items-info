@@ -33,7 +33,7 @@ router.get('/data',(req,res) => {
 router.get('/cat/:category',(req,res)=> {
     const categories = req.params.category.split(',').join("','")
     console.log(categories);
-    conn.query(`SELECT * FROM enmon._nl_items WHERE Kategorija in ('${categories}')`, (err,rows,fields) => {
+    conn.query(`SELECT * FROM enmon._nl_items WHERE Kategorija in ('${categories}') ORDER BY id desc`, (err,rows,fields) => {
         if(!err){
             res.status(200).json(rows);
         }else{
@@ -44,7 +44,7 @@ router.get('/cat/:category',(req,res)=> {
 
 router.get('/brand/:brand',(req,res) => {
     const brands = req.params.brand.split(',').join("','")
-    conn.query(`SELECT * FROM enmon._nl_items WHERE Brand in ('${brands}')`, (err,rows,fields) => {
+    conn.query(`SELECT * FROM enmon._nl_items WHERE Brand in ('${brands}') ORDER BY id desc`, (err,rows,fields) => {
         if(!err){
             res.status(200).json(rows)
         }else{

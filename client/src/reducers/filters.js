@@ -1,7 +1,7 @@
 import {GET_FILTERS} from '../actions/types'
 
 const initialState=[
-    ['PLOČICE'],
+    ['PLOČICE','BATERIJE'],
     ['Marazzi']
 ]
 
