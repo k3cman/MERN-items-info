@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {withStyles,CssBaseline,AppBar,Toolbar, Typography,Grid, LinearProgress,InputBase } from '@material-ui/core';
+import {withStyles,CssBaseline,AppBar,Toolbar, Typography,Grid, LinearProgress,InputBase,Modal,CircularProgress,} from '@material-ui/core';
 import ItemCard from './ItemCard'
 
 import SearchIcon from '@material-ui/icons/Search'
@@ -10,10 +10,14 @@ import {searchItems} from '../../actions/FilterActions';
 
 class Layout extends Component {
     state={
-        searchInput:''
+        searchInput:'',
+        loading:true
     }
     componentDidMount = () => {
         this.props.getItems();
+        if(this.props.items.loading === false){
+            this.setState({loading:false})
+        }
         
     }
     onInputChange = (e) => {
@@ -24,6 +28,7 @@ class Layout extends Component {
 
   render() {
       const {classes} = this.props;
+      console.log(this.props.items.loading)
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -32,6 +37,7 @@ class Layout extends Component {
                 <Typography variant="h6" color="inherit" noWrap>
                     ENMON NEWSLETTER
                 </Typography>
+                {this.props.items.loading ? <LinearProgress style={{width:'400px'}} /> : null}
                 <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -53,7 +59,10 @@ class Layout extends Component {
         <main className={classes.content}>
         <div className={classes.toolbar} />
             <Grid container spacing={8}>
-            {this.props.items.loading ? <LinearProgress variant="query" color="secondary" style={{paddingTop:'200px'}} /> : this.props.items.items.map((item,index)=> (<Grid key={index} item xs={2}>
+            
+            {this.props.items.loading ?
+                 null
+                 : this.props.items.items.map((item,index)=> (<Grid key={index} item xs={2}>
                     <ItemCard
                         title={item.Naziv}
                         brand={item.Brand}
@@ -124,6 +133,13 @@ const styles = theme => ({
         [theme.breakpoints.up('md')]: {
           width: 200,
         },
+      },
+      paper: {
+        position: 'absolute',
+        width: theme.spacing.unit * 50,
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing.unit * 4,
       },
 })
 
