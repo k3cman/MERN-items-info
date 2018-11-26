@@ -58,14 +58,15 @@ class DrawerRight extends Component {
             }}
             anchor="right"
           >
-            <div className={classes.toolbar} />
+            <div className={classes.toolbar} style={{backgroundColor:'#FAFAFA'}}/>
             <List dense component="nav" subheader={<ListSubheader component="div">FILTER</ListSubheader>}>
-            <List dense component="div" disablePadding>
+            <List dense component="div" style={{backgroundColor:'#FAFAFA'}} disablePadding>
                         {this.props.filter[0].map((text, index) => (
                             <ListItem button key={index} onClick={this.handleToggle(text)}>
                                 <ListItemText primary={text} />
                                 <ListItemSecondaryAction>
                                     <Checkbox
+                                        color="primary"
                                         onChange={this.handleToggle(text)}
                                         checked={this.state.checked.indexOf(text) !== -1}
                                          />
@@ -96,6 +97,7 @@ const styles = theme => ({
     drawer:{
         width: 300,
         flexShrink: 0,
+        backgroundColor:'#FAFAFA'
     },
     drawerPaper: {
         width: 300,

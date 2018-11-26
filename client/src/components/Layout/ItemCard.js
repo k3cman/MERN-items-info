@@ -1,21 +1,13 @@
 import React from 'react'
-import {Paper, Typography, withStyles,IconButton} from '@material-ui/core';
+import {Paper, Typography, withStyles,IconButton, FormHelperText} from '@material-ui/core';
 import ArrowDownward from '@material-ui/icons/ArrowDownward'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
 
 function ItemCard(props) {
     const {classes} = props;
-    const brandLogo = () => {
-      if(props.brand === 'Marazzi'){
-        return (<img src="./img/marazzi.png" height="20" />);
-      }else if(props.brand === 'Hispania'){
-        return (<img src="./img/hispania.jpg" height="20" />)
-      }else {
-        return (<Typography variant="p">{props.brand}</Typography>)
-      }
-    }
   return (
-    <div>
-      <Paper className={classes.root}>
+    <div className={classes.root}>
+      {/* <Paper className={classes.root}>
       <div className={classes.left}>
       <Typography variant="subtitle1" style={{fontWeight:'bold'}}>
             {props.title}
@@ -29,19 +21,38 @@ function ItemCard(props) {
           </IconButton>
           </a>
           </div>
-      </Paper>
+      </Paper> */}
+      
+        <hr />
+      <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+        <Typography variant="h6" style={{paddingLeft:'8px'}}>
+        {props.title}
+        </Typography>
+        <IconButton style={{padding:4}} variant="fab" color="primary" aria-label="Download">
+            <ArrowDownward fontSize="small" />
+          </IconButton>
+      </div>
+      
+      <img src={props.brandImg} style={{height:'15px', width:'auto', paddingLeft:'8px'}} />
+      
     </div>
   )
 }
 
 const styles = theme => ({
-    root: {
-      ...theme.mixins.gutters(),
-      paddingTop: theme.spacing.unit * 2,
-      paddingBottom: theme.spacing.unit * 2,
-      display:'flex',
-      justifyContent:'space-between'
-    },
-  });
+  root:{
+    marginBottom:10
+  }
+})
+
+// const styles = theme => ({
+//     root: {
+//       ...theme.mixins.gutters(),
+//       paddingTop: theme.spacing.unit * 2,
+//       paddingBottom: theme.spacing.unit * 2,
+//       display:'flex',
+//       justifyContent:'space-between'
+//     },
+//   });
 
 export default withStyles(styles)(ItemCard)

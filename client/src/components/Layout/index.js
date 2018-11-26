@@ -32,11 +32,13 @@ class Layout extends Component {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="fixed" color="default" style={{boxShadow:'none', borderBottom:'1px solid rgba(0,0,0,0.12)', background:'white'}} className={classes.appBar}>
+        <AppBar position="fixed" color="default" style={{boxShadow:'none', borderBottom:'1px solid rgba(0,0,0,0.12)', background:'#FAFAFA'}} className={classes.appBar}>
             <Toolbar style={{display:'flex', justifyContent:'space-between'}}>
-                <Typography variant="h6" color="inherit" noWrap>
-                    ENMON NEWSLETTER
-                </Typography>
+            <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+            <img src="http://www.enmongroup.com/assets/images/logo-big.png" alt="enmon logo" height="40px" />
+            <Typography variant="h6" color="primary">NewsLetter</Typography>
+            </div>
+                
                 {this.props.items.loading ? <LinearProgress style={{width:'400px'}} /> : null}
                 <div className={classes.search}>
               <div className={classes.searchIcon}>
@@ -62,7 +64,7 @@ class Layout extends Component {
             
             {this.props.items.loading ?
                  null
-                 : this.props.items.items.map((item,index)=> (<Grid key={index} item xs={2}>
+                 : this.props.items.items.map((item,index)=> (<Grid key={index} item xs={3}>
                     <ItemCard
                         title={item.Naziv}
                         brand={item.Brand}
