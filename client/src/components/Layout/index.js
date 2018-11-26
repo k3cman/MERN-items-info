@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {withStyles,CssBaseline,AppBar,Toolbar, Typography,Grid, LinearProgress,InputBase,Modal,CircularProgress,} from '@material-ui/core';
+import {withStyles,CssBaseline,AppBar,Toolbar, Typography,Grid, LinearProgress,InputBase,Modal,CircularProgress,Grow} from '@material-ui/core';
 import ItemCard from './ItemCard'
 
 import SearchIcon from '@material-ui/icons/Search'
@@ -11,12 +11,12 @@ import {searchItems} from '../../actions/FilterActions';
 class Layout extends Component {
     state={
         searchInput:'',
-        loading:true
+        loading:false
     }
     componentDidMount = () => {
         this.props.getItems();
         if(this.props.items.loading === false){
-            this.setState({loading:false})
+            this.setState({loading:true})
         }
         
     }
