@@ -12,6 +12,7 @@ router.get("/all", (req, res) => {
       let output = _.mapValues(_.groupBy(result, "brand"), list =>
         list.map(article => _.omit(article, "brand"))
       );
+      console.log(output);
       if (!err) {
         res.status(200).json(output);
       } else {

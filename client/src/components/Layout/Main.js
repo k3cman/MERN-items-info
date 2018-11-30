@@ -1,136 +1,37 @@
 import React, { Component } from "react";
-import {
-  withStyles,
-  Grid,
-  Typography,
-  IconButton,
-  Paper
-} from "@material-ui/core";
-import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import { withStyles, Grid, Typography, IconButton } from "@material-ui/core";
+
+import BrandHeading from "../Common/BrandHeading";
+import RenderItemCards from "../Common/RenderItemCards";
 
 class Main extends Component {
+  state = {
+    data: []
+  };
+  componentWillMount = () => {
+    fetch("http://localhost:5000/collections/all")
+      .then(res => res.json())
+      .then(data => {
+        Object.keys(data).forEach(key => {
+          this.setState({
+            data: [
+              {
+                key: [...data[key]]
+              }
+            ]
+          });
+          console.log(key, data[key]);
+        });
+      });
+  };
+
   render() {
     const { classes } = this.props;
+
     return (
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Grid container spacing={8}>
-          <Grid item xs={3}>
-            <hr />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center"
-              }}
-            >
-              <div>
-                <Typography variant="button" style={{ paddingLeft: 8 }}>
-                  TITLE
-                </Typography>
-                <Typography variant="caption" style={{ paddingLeft: 8 }}>
-                  subtitle
-                </Typography>
-              </div>
-
-              <IconButton style={{ padding: 4 }} variant="fab" color="primary">
-                <ArrowDownward fontSize="small" />
-              </IconButton>
-            </div>
-          </Grid>
-          <Grid item xs={3}>
-            <hr />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center"
-              }}
-            >
-              <div>
-                <Typography variant="button" style={{ paddingLeft: 8 }}>
-                  TITLE
-                </Typography>
-                <Typography variant="caption" style={{ paddingLeft: 8 }}>
-                  subtitle
-                </Typography>
-              </div>
-
-              <IconButton style={{ padding: 4 }} variant="fab" color="primary">
-                <ArrowDownward fontSize="small" />
-              </IconButton>
-            </div>
-          </Grid>
-          <Grid item xs={3}>
-            <hr />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center"
-              }}
-            >
-              <div>
-                <Typography variant="button" style={{ paddingLeft: 8 }}>
-                  TITLE
-                </Typography>
-                <Typography variant="caption" style={{ paddingLeft: 8 }}>
-                  subtitle
-                </Typography>
-              </div>
-
-              <IconButton style={{ padding: 4 }} variant="fab" color="primary">
-                <ArrowDownward fontSize="small" />
-              </IconButton>
-            </div>
-          </Grid>
-          <Grid item xs={3}>
-            <hr />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center"
-              }}
-            >
-              <div>
-                <Typography variant="button" style={{ paddingLeft: 8 }}>
-                  TITLE
-                </Typography>
-                <Typography variant="caption" style={{ paddingLeft: 8 }}>
-                  subtitle
-                </Typography>
-              </div>
-
-              <IconButton style={{ padding: 4 }} variant="fab" color="primary">
-                <ArrowDownward fontSize="small" />
-              </IconButton>
-            </div>
-          </Grid>
-          <Grid item xs={3}>
-            <hr />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center"
-              }}
-            >
-              <div>
-                <Typography variant="button" style={{ paddingLeft: 8 }}>
-                  TITLE
-                </Typography>
-                <Typography variant="caption" style={{ paddingLeft: 8 }}>
-                  subtitle
-                </Typography>
-              </div>
-
-              <IconButton style={{ padding: 4 }} variant="fab" color="primary">
-                <ArrowDownward fontSize="small" />
-              </IconButton>
-            </div>
-          </Grid>
-        </Grid>
+        <RenderItemCards />
       </main>
     );
   }
