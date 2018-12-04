@@ -3,6 +3,7 @@ import { Grid, Typography, IconButton } from "@material-ui/core";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 
 function ItemCard(props) {
+  const { title, newsletter } = props.item;
   return (
     <Grid item xs={3}>
       <hr />
@@ -15,16 +16,17 @@ function ItemCard(props) {
       >
         <div>
           <Typography variant="button" style={{ paddingLeft: 8 }}>
-            TITLE
+            {title}
           </Typography>
           <Typography variant="caption" style={{ paddingLeft: 8 }}>
             subtitle
           </Typography>
         </div>
-
-        <IconButton style={{ padding: 4 }} variant="fab" color="primary">
-          <ArrowDownward fontSize="small" />
-        </IconButton>
+        <a href={newsletter} target="_blank">
+          <IconButton style={{ padding: 4 }} variant="fab" color="primary">
+            <ArrowDownward fontSize="small" />
+          </IconButton>
+        </a>
       </div>
     </Grid>
   );

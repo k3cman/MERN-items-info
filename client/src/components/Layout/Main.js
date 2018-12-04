@@ -6,27 +6,38 @@ import RenderItemCards from "../Common/RenderItemCards";
 
 class Main extends Component {
   state = {
-    brands: [],
-    items: {}
+    data: [],
+    loading: true
   };
   componentWillMount = () => {
     fetch("http://localhost:5000/collections/all")
       .then(res => res.json())
-      .then(data => this.setState({ brands: Object.keys(data), items: data }));
+      .then(data => this.setState({ data: data, loading: false }));
   };
 
   render() {
     const { classes } = this.props;
-
-    return (
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        {this.state.brands.map((brand, index) => (
-          <RenderItemCards brand={brand} key={index} items={this.state.items} />
-        ))}
-        <RenderItemCards />
-      </main>
-    );
+    if (this.state.loading) {
+      return (
+        <main className={classes.content}>
+          {/* <div className={classes.toolbar} /> */}
+          LOADING
+        </main>
+      );
+    } else {
+      return (
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          {this.state.data.map((brand, index) => (
+            <RenderItemCards
+              key={index}
+              brand={brand.brand}
+              items={brand.items}
+            />
+          ))}
+        </main>
+      );
+    }
   }
 }
 
