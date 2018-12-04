@@ -6,23 +6,13 @@ import RenderItemCards from "../Common/RenderItemCards";
 
 class Main extends Component {
   state = {
-    data: []
+    brands: [],
+    items: {}
   };
   componentWillMount = () => {
     fetch("http://localhost:5000/collections/all")
       .then(res => res.json())
-      .then(data => {
-        Object.keys(data).forEach(key => {
-          this.setState({
-            data: [
-              {
-                key: [...data[key]]
-              }
-            ]
-          });
-          console.log(key, data[key]);
-        });
-      });
+      .then(data => this.setState({ brands: Object.keys(data), items: data }));
   };
 
   render() {
@@ -31,6 +21,9 @@ class Main extends Component {
     return (
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        {this.state.brands.map((brand, index) => (
+          <RenderItemCards brand={brand} key={index} items={this.state.items} />
+        ))}
         <RenderItemCards />
       </main>
     );

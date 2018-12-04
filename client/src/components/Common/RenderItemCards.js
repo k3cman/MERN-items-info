@@ -3,14 +3,14 @@ import ItemCard from "./ItemCard";
 import BrandHeading from "./BrandHeading";
 import { Grid } from "@material-ui/core";
 
-function RenderItemCards() {
+function RenderItemCards(props) {
   return (
-    <Fragment>
-      <BrandHeading img={null} title="HansGrohe" />
+    <div style={{ marginTop: 20, marginBottom: 20 }}>
+      <BrandHeading img={null} title={props.brand} />
       <Grid container spacing={8}>
         <ItemCard />
       </Grid>
-    </Fragment>
+    </div>
   );
 }
 
