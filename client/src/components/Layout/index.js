@@ -1,19 +1,32 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { CssBaseline, withStyles } from "@material-ui/core";
 
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import Main from "./Main";
+import { BrowserRouter, Route } from "react-router-dom";
+import DetailsWrapper from "./DetailsWrapper";
 
 const Layout = props => {
   const { classes } = props;
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <Navbar />
-      <Main />
-      <Sidebar />
-    </div>
+    <BrowserRouter>
+      <div className={classes.root}>
+        <CssBaseline />
+        <Navbar />
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <Fragment>
+              <Main />
+              <Sidebar />
+            </Fragment>
+          )}
+        />
+        <Route exact path={`/details/:title`} component={DetailsWrapper} />
+      </div>
+    </BrowserRouter>
   );
 };
 
