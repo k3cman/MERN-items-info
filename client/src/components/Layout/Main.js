@@ -19,7 +19,6 @@ class Main extends Component {
   };
 
   render() {
-    console.log(this.props.all);
     const { classes } = this.props;
     const { loading, data } = this.props.data;
     if (loading) {

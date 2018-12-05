@@ -14,6 +14,7 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import InboxIcon from "@material-ui/icons/Inbox";
 import CategoriesList from "../Common/CategoriesList";
 import { connect } from "react-redux";
+import { updateItemsBrand } from "../../actions/ItemActions";
 
 class Sidebar extends Component {
   state = {
@@ -21,6 +22,9 @@ class Sidebar extends Component {
   };
   handleClick = () => {
     this.setState({ open: !this.state.open });
+  };
+  handleBrandClick = brand => {
+    this.props.updateItemsBrand(brand);
   };
   render() {
     const { classes } = this.props;
@@ -51,7 +55,12 @@ class Sidebar extends Component {
         <Collapse in={this.state.open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {brands.map((brand, index) => (
-              <ListItem key={index} dense button>
+              <ListItem
+                onClick={() => this.handleBrandClick(brand)}
+                key={index}
+                dense
+                button
+              >
                 <ListItemText inset primary={brand} />
               </ListItem>
             ))}
@@ -89,5 +98,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  { updateItemsBrand }
 )(withStyles(styles)(Sidebar));

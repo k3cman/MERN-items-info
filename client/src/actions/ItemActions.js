@@ -1,4 +1,4 @@
-import { GET_ITEMS, UPDATE_CATEGORY, UPDATE_CATEGORY_CHECK } from "./types";
+import { GET_ITEMS, UPDATE_CATEGORY, UPDATE_BRAND } from "./types";
 
 export const getItems = () => dispatch => {
   fetch("http://localhost:5000/collections/all")
@@ -9,8 +9,6 @@ export const getItems = () => dispatch => {
 export const updateCategories = categories => dispatch => {
   let cats = categories;
   let joi = cats.join("','");
-  console.log(joi);
-
   fetch(`http://localhost:5000/collections/c/${joi}`)
     .then(res => res.json())
     .then(data =>
@@ -21,9 +19,13 @@ export const updateCategories = categories => dispatch => {
     );
 };
 
-export const updateCheckedCat = cat => dispatch => {
-  dispatch({
-    type: UPDATE_CATEGORY_CHECK,
-    payload: cat
-  });
+export const updateItemsBrand = brand => dispatch => {
+  fetch(`http://localhost:5000/collections/b/${brand}`)
+    .then(res => res.json())
+    .then(data =>
+      dispatch({
+        type: UPDATE_BRAND,
+        payload: data
+      })
+    );
 };

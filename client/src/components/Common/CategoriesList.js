@@ -24,7 +24,6 @@ class CategoriesList extends Component {
       newChecked.splice(currentIndex, 1);
     }
     this.props.updateCategories(newChecked);
-    console.log(newChecked);
   };
 
   render() {

@@ -107,16 +107,52 @@ router.get("/c/:cat", (req, res) => {
   );
 });
 
-router.get("/brand/:brand", (req, res) => {
+router.get("/b/:brand", (req, res) => {
   conn.query(
-    `SELECT id,title,image,pdf FROM enmon.article_collections WHERE brand=?`,
-    [req.params.brand],
+    `SELECT * FROM enmon.article_collections WHERE brand='${req.params.brand}'`,
     (err, result, fields) => {
-      if (!err) {
-        res.status(200).json(result);
-      } else {
-        res.status(400).json({ error: err });
+      const data = result;
+      const categoriesList = data
+        .map(item => item.category)
+        .filter((value, index, self) => self.indexOf(value) === index);
+      const brandsList = data
+        .map(item => item.brand)
+        .filter((value, index, self) => self.indexOf(value) === index);
+
+      let tempObj = {};
+
+      data.forEach(item => {
+        if (typeof tempObj[item.brand] === "undefined")
+          tempObj[item.brand] = [];
+
+        tempObj[item.brand].push({
+          id: item.id,
+          title: item.title,
+          newsletter: item.pdf,
+          masterImg: item.image,
+          cat: item.category
+        });
+      });
+
+      let newItems = [];
+
+      for (let brand in tempObj) {
+        newItems.push({
+          brand: brand,
+          items: []
+        });
+        var lastItem = newItems.length - 1;
+        tempObj[brand].forEach(item => {
+          newItems[lastItem].items.push(item);
+        });
       }
+
+      let resFinal = {
+        catList: categoriesList,
+        brandList: brandsList,
+        all: newItems
+      };
+      res.json(resFinal);
     }
   );
 });
