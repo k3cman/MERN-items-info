@@ -7,18 +7,39 @@ import {
   ListItemText,
   ListItem
 } from "@material-ui/core";
+import { connect } from "react-redux";
+import { updateCategories } from "../../actions/ItemActions";
 
 class CategoriesList extends Component {
+  state = {
+    checked: []
+  };
+  handleToggle = cat => {
+    const { checked } = this.props;
+    const currentIndex = checked.indexOf(cat);
+    const newChecked = [...checked];
+    if (currentIndex === -1) {
+      newChecked.push(cat);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+    this.props.updateCategories(newChecked);
+    console.log(newChecked);
+  };
+
   render() {
     const { classes } = this.props;
-    console.log(this.props.cats);
+
     return (
       <List dense className={classes.root}>
         {this.props.cats.map((cat, index) => (
           <ListItem key={index} button>
             <ListItemText primary={cat} />
             <ListItemSecondaryAction>
-              <Checkbox checked />
+              <Checkbox
+                onChange={() => this.handleToggle(cat)}
+                checked={this.props.checked.indexOf(cat) !== -1}
+              />
             </ListItemSecondaryAction>
           </ListItem>
         ))}
@@ -33,4 +54,9 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(CategoriesList);
+const mapStateToProps = state => ({});
+
+export default connect(
+  mapStateToProps,
+  { updateCategories }
+)(withStyles(styles)(CategoriesList));

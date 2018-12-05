@@ -1,4 +1,9 @@
-import { GET_ITEMS, UPDATE_ITEMS } from "../actions/types";
+import {
+  GET_ITEMS,
+  UPDATE_ITEMS,
+  UPDATE_CATEGORY_CHECK,
+  UPDATE_CATEGORY
+} from "../actions/types";
 
 const initialState = {
   loading: true,
@@ -14,12 +19,16 @@ export default (state = initialState, action) => {
         loading: false,
         data: action.payload.all,
         categories: action.payload.catList,
+        checked: action.payload.catList,
         brands: action.payload.brandList
       };
-    case UPDATE_ITEMS:
+    case UPDATE_CATEGORY:
       return {
+        ...state,
         loading: false,
-        items: action.payload
+        data: action.payload.all,
+        checked: action.payload.catList,
+        brands: action.payload.brandList
       };
     default:
       return state;

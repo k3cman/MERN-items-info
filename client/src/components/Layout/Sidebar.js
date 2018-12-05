@@ -24,7 +24,7 @@ class Sidebar extends Component {
   };
   render() {
     const { classes } = this.props;
-    const { brands, categories } = this.props.sidebar;
+    const { brands, categories, checked } = this.props.sidebar;
     return (
       <Drawer
         className={classes.drawer}
@@ -40,7 +40,7 @@ class Sidebar extends Component {
           component="nav"
           subheader={<ListSubheader component="div">FILTER</ListSubheader>}
         />
-        <CategoriesList cats={categories} />
+        <CategoriesList cats={categories} checked={checked} />
         <ListItem button onClick={this.handleClick}>
           <ListItemIcon>
             <InboxIcon />
