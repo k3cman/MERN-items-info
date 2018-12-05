@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import { CssBaseline, withStyles } from "@material-ui/core";
 
 import Sidebar from "./Sidebar";

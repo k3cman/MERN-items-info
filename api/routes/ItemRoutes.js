@@ -63,7 +63,8 @@ router.get("/all", (req, res) => {
           id: item.id,
           title: item.title,
           newsletter: item.pdf,
-          masterImg: item.image
+          masterImg: item.image,
+          cat: item.category
         });
       });
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Toolbar, Typography, withStyles } from "@material-ui/core";
+import { AppBar, Toolbar, withStyles } from "@material-ui/core";
 
 function Navbar(props) {
   const { classes } = props;

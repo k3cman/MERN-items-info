@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { withStyles, Grid, Typography, IconButton } from "@material-ui/core";
+import { withStyles } from "@material-ui/core";
+import { connect } from "react-redux";
+import { getItems } from "../../actions/ItemActions";
 
-import BrandHeading from "../Common/BrandHeading";
 import RenderItemCards from "../Common/RenderItemCards";
 
 class Main extends Component {
@@ -9,15 +10,19 @@ class Main extends Component {
     data: [],
     loading: true
   };
-  componentWillMount = () => {
+  componentDidMount = () => {
     fetch("http://localhost:5000/collections/all")
       .then(res => res.json())
-      .then(data => this.setState({ data: data, loading: false }));
+      .then(data => this.setState({ data: data.all, loading: false }));
+
+    this.props.getItems();
   };
 
   render() {
+    console.log(this.props.all);
     const { classes } = this.props;
-    if (this.state.loading) {
+    const { loading, data } = this.props.data;
+    if (loading) {
       return (
         <main className={classes.content}>
           {/* <div className={classes.toolbar} /> */}
@@ -28,7 +33,7 @@ class Main extends Component {
       return (
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          {this.state.data.map((brand, index) => (
+          {data.map((brand, index) => (
             <RenderItemCards
               key={index}
               brand={brand.brand}
@@ -51,4 +56,11 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(Main);
+const mapStateToProps = state => ({
+  data: state.all
+});
+
+export default connect(
+  mapStateToProps,
+  { getItems }
+)(withStyles(styles)(Main));

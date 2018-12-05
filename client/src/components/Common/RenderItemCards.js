@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import ItemCard from "./ItemCard";
 import BrandHeading from "./BrandHeading";
 import { Grid } from "@material-ui/core";

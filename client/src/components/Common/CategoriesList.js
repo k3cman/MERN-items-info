@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import {
   withStyles,
   List,
@@ -8,18 +8,23 @@ import {
   ListItem
 } from "@material-ui/core";
 
-function CategoriesList(props) {
-  const { classes } = props;
-  return (
-    <List dense className={classes.root}>
-      <ListItem button>
-        <ListItemText primary="TEXT" />
-        <ListItemSecondaryAction>
-          <Checkbox checked />
-        </ListItemSecondaryAction>
-      </ListItem>
-    </List>
-  );
+class CategoriesList extends Component {
+  render() {
+    const { classes } = this.props;
+    console.log(this.props.cats);
+    return (
+      <List dense className={classes.root}>
+        {this.props.cats.map((cat, index) => (
+          <ListItem key={index} button>
+            <ListItemText primary={cat} />
+            <ListItemSecondaryAction>
+              <Checkbox checked />
+            </ListItemSecondaryAction>
+          </ListItem>
+        ))}
+      </List>
+    );
+  }
 }
 
 const styles = theme => ({

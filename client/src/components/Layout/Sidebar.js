@@ -1,10 +1,30 @@
-import React, { Component, Fragment } from "react";
-import { withStyles, Drawer, List, ListSubheader } from "@material-ui/core";
+import React, { Component } from "react";
+import {
+  withStyles,
+  Drawer,
+  List,
+  ListSubheader,
+  ListItemIcon,
+  ListItem,
+  ListItemText,
+  Collapse
+} from "@material-ui/core";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import InboxIcon from "@material-ui/icons/Inbox";
 import CategoriesList from "../Common/CategoriesList";
+import { connect } from "react-redux";
 
 class Sidebar extends Component {
+  state = {
+    open: false
+  };
+  handleClick = () => {
+    this.setState({ open: !this.state.open });
+  };
   render() {
     const { classes } = this.props;
+    const { brands, categories } = this.props.sidebar;
     return (
       <Drawer
         className={classes.drawer}
@@ -20,7 +40,23 @@ class Sidebar extends Component {
           component="nav"
           subheader={<ListSubheader component="div">FILTER</ListSubheader>}
         />
-        <CategoriesList />
+        <CategoriesList cats={categories} />
+        <ListItem button onClick={this.handleClick}>
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText inset primary="Brendovi" />
+          {this.state.open ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            {brands.map((brand, index) => (
+              <ListItem key={index} dense button>
+                <ListItemText inset primary={brand} />
+              </ListItem>
+            ))}
+          </List>
+        </Collapse>
       </Drawer>
     );
   }
@@ -41,7 +77,17 @@ const styles = theme => ({
     height: 64,
     borderBottom: "1px solid rgba(0,0,0,0.12)"
   },
-  toolbar: theme.mixins.toolbar
+  toolbar: theme.mixins.toolbar,
+  nested: {
+    paddingLeft: theme.spacing.unit * 4
+  }
 });
 
-export default withStyles(styles)(Sidebar);
+const mapStateToProps = state => ({
+  sidebar: state.all
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(withStyles(styles)(Sidebar));
