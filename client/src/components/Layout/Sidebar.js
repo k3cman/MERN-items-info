@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { withStyles, Drawer, List, ListSubheader } from "@material-ui/core";
+import CategoriesList from "../Common/CategoriesList";
 
 class Sidebar extends Component {
   render() {
@@ -19,6 +20,7 @@ class Sidebar extends Component {
           component="nav"
           subheader={<ListSubheader component="div">FILTER</ListSubheader>}
         />
+        <CategoriesList />
       </Drawer>
     );
   }

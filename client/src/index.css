@@ -4,3 +4,11 @@ hr {
   background-color: rgba(0, 0, 0, 0.3);
   height: 1px;
 }
+
+.render-items {
+  margin-top: 50px;
+}
+
+.render-items:first-child {
+  margin-top: 0;
+}

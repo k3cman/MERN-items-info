@@ -29,6 +29,8 @@ import Grohe from "../../assets/img/Grohe.jpg";
 import Huppe from "../../assets/img/Huppe.jpg";
 import Ariston from "../../assets/img/Ariston.jpg";
 import Zorka from "../../assets/img/Zorka.jpg";
+import EnmonLogo from "../../assets/img/Enmon.png";
+import Fonte from "../../assets/img/fonte.gif";
 
 function BrandHeading(props) {
   if (props.title === "Marazzi") {
@@ -117,6 +119,16 @@ function BrandHeading(props) {
   }
   if (props.title === "Ariston") {
     return <img src={Ariston} height="30" alt="brand logo" />;
+  }
+  if (props.title === "Enmon brend") {
+    return <img src={EnmonLogo} height="30" alt="brand logo" />;
+  }
+  if (props.title === "Enmon baterije") {
+    return <img src={EnmonLogo} height="30" alt="brand logo" />;
+  }
+
+  if (props.title === "Fonte baterije") {
+    return <img src={Fonte} height="30" alt="brand logo" />;
   }
   return <Typography variant="h5">{props.title}</Typography>;
 }

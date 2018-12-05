@@ -7,8 +7,8 @@ function RenderItemCards(props) {
   const { items, brand } = props;
   const renderItems = items.map(item => <ItemCard key={item.id} item={item} />);
   return (
-    <div style={{ marginTop: 20, marginBottom: 20 }}>
-      <BrandHeading title={brand} />
+    <div className="render-items">
+      <BrandHeading style={{ textAlign: "center" }} title={brand} />
       <Grid container spacing={8}>
         {renderItems}
       </Grid>
