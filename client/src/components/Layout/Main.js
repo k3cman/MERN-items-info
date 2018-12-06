@@ -11,10 +11,6 @@ class Main extends Component {
     loading: true
   };
   componentDidMount = () => {
-    fetch("http://localhost:5000/collections/all")
-      .then(res => res.json())
-      .then(data => this.setState({ data: data.all, loading: false }));
-
     this.props.getItems();
   };
 
