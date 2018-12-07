@@ -3,6 +3,8 @@ import Layout from "./components/Layout/";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import SignIn from "./components/Layout/SignIn";
 
 const theme = createMuiTheme({
   palette: {
@@ -40,7 +42,12 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <Provider store={store}>
-          <Layout />
+          <BrowserRouter>
+            <Switch>
+              <Route exact path="/" component={Layout} />
+              <Route exact path="/signin" component={SignIn} />
+            </Switch>
+          </BrowserRouter>
         </Provider>
       </MuiThemeProvider>
     );

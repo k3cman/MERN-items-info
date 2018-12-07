@@ -1,10 +1,4 @@
-import {
-  GET_ITEMS,
-  UPDATE_ITEMS,
-  UPDATE_CATEGORY_CHECK,
-  UPDATE_CATEGORY,
-  UPDATE_BRAND
-} from "../actions/types";
+import { GET_ITEMS, UPDATE_CATEGORY, UPDATE_BRAND } from "../actions/types";
 
 const initialState = {
   loading: true,

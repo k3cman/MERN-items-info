@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import Main from "./Main";
 import { BrowserRouter, Route } from "react-router-dom";
 import DetailsWrapper from "./DetailsWrapper";
+import SignIn from "./SignIn";
 
 const Layout = props => {
   const { classes } = props;
@@ -25,6 +26,7 @@ const Layout = props => {
           )}
         />
         <Route exact path={`/details/:title`} component={DetailsWrapper} />
+        <Route exact path={`/signin`} component={SignIn} />
       </div>
     </BrowserRouter>
   );

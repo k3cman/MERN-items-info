@@ -5,6 +5,7 @@ const conn = require("./config/connection");
 
 //Routes
 const ItemRoutes = require("./api/routes/ItemRoutes");
+const UserRoutes = require("./api/routes/UserRoutes");
 
 conn.connect(err => {
   if (!err) {
@@ -32,7 +33,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/collections/", ItemRoutes);
+app.use("/coll/", ItemRoutes);
+app.use("/usr/", UserRoutes);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
