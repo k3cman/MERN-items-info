@@ -25,7 +25,7 @@ function ItemCard(props) {
             {cat.toLowerCase()}
           </Typography>
         </div>
-        <a href={newsletter} target="_blank">
+        <a rel="noopener noreferrer" href={newsletter} target="_blank">
           <IconButton style={{ padding: 4 }} variant="fab" color="primary">
             <ArrowDownward fontSize="small" />
           </IconButton>

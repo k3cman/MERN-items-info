@@ -3,19 +3,23 @@ import {
   withStyles,
   Drawer,
   List,
-  ListSubheader,
   ListItemIcon,
   ListItem,
   ListItemText,
   Collapse,
-  InputBase
+  InputBase,
+  Button
 } from "@material-ui/core";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import InboxIcon from "@material-ui/icons/Inbox";
 import CategoriesList from "../Common/CategoriesList";
 import { connect } from "react-redux";
-import { updateItemsBrand } from "../../actions/ItemActions";
+import {
+  updateItemsBrand,
+  searchItems,
+  getItems
+} from "../../actions/ItemActions";
 import SearchIcon from "@material-ui/icons/Search";
 
 class Sidebar extends Component {
@@ -32,9 +36,18 @@ class Sidebar extends Component {
   handleSearchInput = e => {
     this.setState({ search: e.target.value });
   };
+  handleEnterKey = e => {
+    let event = e.keyCode || e.which;
+    if (event === 13) {
+      const searchStr = this.state.search;
+      searchStr === ""
+        ? this.props.getItems()
+        : this.props.searchItems(searchStr);
+    }
+  };
   render() {
     const { classes } = this.props;
-    const { brands, categories, checked } = this.props.sidebar;
+    const { brands, categories, checked, filters } = this.props.sidebar;
     return (
       <Drawer
         className={classes.drawer}
@@ -49,8 +62,7 @@ class Sidebar extends Component {
             <SearchIcon />
           </div>
           <InputBase
-            onKey
-            placeholder="Search…"
+            placeholder="Pretraga…"
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput
@@ -58,13 +70,20 @@ class Sidebar extends Component {
             name="search"
             value={this.state.search}
             onChange={this.handleSearchInput}
+            onKeyPress={this.handleEnterKey}
           />
         </div>
-        <List
-          dense
-          component="nav"
-          subheader={<ListSubheader component="div">FILTER</ListSubheader>}
-        />
+        {filters ? (
+          <Button
+            variant="outlined"
+            color="primary"
+            className={classes.button}
+            onClick={() => this.props.getItems()}
+          >
+            Resetuj FIltere
+          </Button>
+        ) : null}
+
         <CategoriesList cats={categories} checked={checked} />
         <ListItem button onClick={this.handleClick}>
           <ListItemIcon>
@@ -93,6 +112,9 @@ class Sidebar extends Component {
 }
 
 const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit
+  },
   drawer: {
     width: 300,
     flexShrink: 0,
@@ -138,5 +160,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { updateItemsBrand }
+  { updateItemsBrand, getItems, searchItems }
 )(withStyles(styles)(Sidebar));
