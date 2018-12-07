@@ -1,4 +1,9 @@
-import { GET_ITEMS, UPDATE_CATEGORY, UPDATE_BRAND } from "../actions/types";
+import {
+  GET_ITEMS,
+  UPDATE_CATEGORY,
+  UPDATE_BRAND,
+  SEARCH_ITEMS
+} from "../actions/types";
 
 const initialState = {
   loading: true,
@@ -26,6 +31,13 @@ export default (state = initialState, action) => {
         brands: action.payload.brandList
       };
     case UPDATE_BRAND:
+      return {
+        ...state,
+        loading: false,
+        data: action.payload.all,
+        checked: action.payload.catList
+      };
+    case SEARCH_ITEMS:
       return {
         ...state,
         loading: false,

@@ -1,4 +1,9 @@
-import { GET_ITEMS, UPDATE_CATEGORY, UPDATE_BRAND } from "./types";
+import {
+  GET_ITEMS,
+  UPDATE_CATEGORY,
+  UPDATE_BRAND,
+  SEARCH_ITEMS
+} from "./types";
 
 export const getItems = () => dispatch => {
   fetch("http://localhost:5000/coll/all")
@@ -14,6 +19,17 @@ export const updateCategories = categories => dispatch => {
     .then(data =>
       dispatch({
         type: UPDATE_CATEGORY,
+        payload: data
+      })
+    );
+};
+
+export const searchItems = input => dispatch => {
+  fetch(`http://localhost:5000/coll/search/${input}`)
+    .then(res => res.json())
+    .then(data =>
+      dispatch({
+        type: SEARCH_ITEMS,
         payload: data
       })
     );
