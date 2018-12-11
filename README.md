@@ -8,5 +8,10 @@ Portaly for companys employees to find newsletters for every collection of produ
 - [x] Implement Filters
 
 TODO :
-- [] Add Login
-- [] Add new page for every collection and create API route for retriving data
+- [ ] Add Login
+- [ ] Add new page for every collection
+- [ ] Create API route for retriving data
+
+### Folder Structure
+/client - React/Redux App
+./      - Node/Express REST API
