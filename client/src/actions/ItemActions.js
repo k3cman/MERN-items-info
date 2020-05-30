@@ -7,7 +7,7 @@ import {
 } from "./types";
 
 export const getItems = () => dispatch => {
-  fetch("http://localhost:5000/coll/all")
+  fetch("http://apps.enmongroup.com:5000/coll/all")
     .then(res => res.json())
     .then(data => dispatch({ type: GET_ITEMS, payload: data }));
 };
@@ -16,7 +16,7 @@ export const updateCategories = categories => dispatch => {
   let cats = categories;
   let joi = cats.join("','");
   dispatch({ type: FILTERS_ACTIVE });
-  fetch(`http://localhost:5000/coll/c/${joi}`)
+  fetch(`http://apps.enmongroup.com:5000/coll/c/${joi}`)
     .then(res => res.json())
     .then(data =>
       dispatch({
@@ -28,7 +28,7 @@ export const updateCategories = categories => dispatch => {
 
 export const searchItems = input => dispatch => {
   dispatch({ type: FILTERS_ACTIVE });
-  fetch(`http://localhost:5000/coll/search/${input}`)
+  fetch(`http://apps.enmongroup.com:5000/coll/search/${input}`)
     .then(res => res.json())
     .then(data =>
       dispatch({
@@ -40,7 +40,7 @@ export const searchItems = input => dispatch => {
 
 export const updateItemsBrand = brand => dispatch => {
   dispatch({ type: FILTERS_ACTIVE });
-  fetch(`http://localhost:5000/coll/b/${brand}`)
+  fetch(`http://apps.enmongroup.com:5000/coll/b/${brand}`)
     .then(res => res.json())
     .then(data =>
       dispatch({
